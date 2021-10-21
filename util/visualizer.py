@@ -6,7 +6,7 @@ import time
 from . import util, html
 from subprocess import Popen, PIPE
 
-import wandb
+# import wandb
 
 if sys.version_info[0] == 2:
     VisdomExceptionBase = Exception
@@ -29,7 +29,6 @@ def save_images(webpage, visuals, image_path, aspect_ratio=1.0, width=256, use_w
     image_dir = webpage.get_image_dir()
     short_path = ntpath.basename(image_path[0])
     name = os.path.splitext(short_path)[0]
-
     webpage.add_header(name)
     ims, txts, links = [], [], []
     ims_dict = {}
@@ -43,7 +42,8 @@ def save_images(webpage, visuals, image_path, aspect_ratio=1.0, width=256, use_w
         links.append(image_name)
         if use_wandb:
             ims_dict[label] = wandb.Image(im)
-    webpage.add_images(ims, txts, links, width=width)
+    if webpage is not None:
+        webpage.add_images(ims, txts, links, width=width)
     if use_wandb:
         wandb.log(ims_dict)
 
@@ -73,6 +73,7 @@ class Visualizer():
         self.saved = False
         self.use_wandb = opt.use_wandb
         self.current_epoch = 0
+        
         if self.display_id > 0:  # connect to a visdom server given <display_port> and <display_server>
             import visdom
             self.ncols = opt.display_ncols
@@ -83,7 +84,8 @@ class Visualizer():
         if self.use_wandb:
             self.wandb_run = wandb.init(project='CycleGAN-and-pix2pix', name=opt.name, config=opt) if not wandb.run else wandb.run
             self.wandb_run._label(repo='CycleGAN-and-pix2pix')
-
+        
+        # TODO 
         if self.use_html:  # create an HTML object at <checkpoints_dir>/web/; images will be saved under <checkpoints_dir>/web/images/
             self.web_dir = os.path.join(opt.checkpoints_dir, opt.name, 'web')
             self.img_dir = os.path.join(self.web_dir, 'images')
@@ -91,6 +93,7 @@ class Visualizer():
             util.mkdirs([self.web_dir, self.img_dir])
         # create a logging file to store training losses
         self.log_name = os.path.join(opt.checkpoints_dir, opt.name, 'loss_log.txt')
+        # TODO
         with open(self.log_name, "a") as log_file:
             now = time.strftime("%c")
             log_file.write('================ Training Loss (%s) ================\n' % now)

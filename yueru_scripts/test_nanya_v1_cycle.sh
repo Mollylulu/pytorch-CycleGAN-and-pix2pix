@@ -1,0 +1,1 @@
+python test.py --dataroot ./datasets/nanya_temp/ --name nanya_cycle --model cycle_gan --no_dropout --eval --num_test 10 --epoch $1 --preprocess "scale_width" --load_size 682 
