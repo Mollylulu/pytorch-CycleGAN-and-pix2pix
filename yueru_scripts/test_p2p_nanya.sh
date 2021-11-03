@@ -1,0 +1,1 @@
+python test.py --dataroot /home/lunaluo/git/pytorch-CycleGAN-and-pix2pix/datasets/nanya_match_v2 --name nanya_p2p --model pix2pix --direction BtoA --epoch $1 --checkpoints_dir test

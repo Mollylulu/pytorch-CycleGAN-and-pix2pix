@@ -1,1 +1,1 @@
-CUDA_VISIBLE_DEVICES='0,1,2,3' python train.py --dataroot ./datasets/nanya_temp --name nanya_cycle --num_threads 8 --gpu_ids "0,1,2,3" --continue_train --epoch_count 200 --lr 0.00002 --n_epochs 300
+python train.py --dataroot ./datasets/nanya_temp --name nanya_cycle --num_threads 8 --gpu_ids "0,1" --continue_train --epoch_count 340 --lr 0.00002 --n_epochs 360

@@ -1,0 +1,1 @@
+python train.py --dataroot ./datasets/nanya_match_v2 --name nanya_p2p --save_by_iter --num_threads 2 --model pix2pix --n_epochs 200 --direction BtoA --max_dataset_size 499 --checkpoints_dir test
